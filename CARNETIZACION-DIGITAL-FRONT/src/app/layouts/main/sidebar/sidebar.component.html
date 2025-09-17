@@ -1,0 +1,121 @@
+<!-- sidebar.component.html -->
+<mat-sidenav-container class="sidebar-container">
+  <mat-sidenav
+    #sidenav
+    mode="side"
+    opened="true"
+    class="sidebar"
+    [fixedInViewport]="true"
+    [fixedTopGap]="0">
+
+    <!-- Header -->
+    <div class="sidebar-header">
+      <h2 class="logo">
+        <img src="../../../../assets/icons/logo.png" alt="" width="40">
+        <span class="logo-text">CarnetGo</span>
+      </h2>
+    </div>
+
+    <!-- Navigation Menu -->
+    <div class="sidebar-content">
+      <nav class="navigation-menu">
+        <ng-container *ngFor="let menuItem of menuItems">
+
+          <!-- Group Title -->
+          <div class="menu-group" *ngIf="menuItem.type === 'group'">
+            <div class="group-title">
+              <span>{{ menuItem.title }}</span>
+            </div>
+
+            <!-- Group Items -->
+            <div class="group-items">
+              <ng-container *ngFor="let item of menuItem.children">
+
+                <!-- Simple Item -->
+                <div class="menu-item"
+                  *ngIf="item.type === 'item'"
+                  [class.active]="item.id === activeItem"
+                  (click)="selectItem(item)">
+                  <mat-icon class="item-icon">{{ item.icon }}</mat-icon>
+                  <span class="item-text">{{ item.title }}</span>
+                </div>
+
+                <!-- Collapsible Item -->
+                <div class="menu-item collapsible"
+                  *ngIf="item.type === 'collapse'">
+                  <div class="collapse-header"
+                    [class.active]="item.id === activeItem"
+                    (click)="toggleCollapse(item.id)">
+                    <div class="collapse-content">
+                      <mat-icon class="item-icon">{{ item.icon }}</mat-icon>
+                      <span class="item-text">{{ item.title }}</span>
+                    </div>
+                    <mat-icon class="expand-icon"
+                      [class.rotated]="isExpanded(item.id)">
+                      expand_more
+                    </mat-icon>
+                  </div>
+
+                  <!-- Collapsible Content -->
+                  <div class="collapse-content-wrapper"
+                    [class.expanded]="isExpanded(item.id)">
+                    <div class="collapse-items">
+                      <ng-container
+                        *ngTemplateOutlet="renderMenuItems; context: { $implicit: item.children }"></ng-container>
+                    </div>
+                  </div>
+                </div>
+
+              </ng-container>
+            </div>
+          </div>
+
+        </ng-container>
+        <ng-template #renderMenuItems let-items>
+          <div *ngFor="let subItem of items">
+
+            <div class="menu-item"
+              *ngIf="subItem.type === 'item'"
+              [class.active]="subItem.id === activeItem"
+              (click)="selectItem(subItem)">
+              <mat-icon class="item-icon">{{ subItem.icon }}</mat-icon>
+              <span class="item-text">{{ subItem.title }}</span>
+            </div>
+
+            <div class="menu-item collapsible"
+              *ngIf="subItem.type === 'collapse'">
+              <div class="collapse-header"
+                [class.active]="subItem.id === activeItem"
+                (click)="toggleCollapse(subItem.id)">
+                <div class="collapse-content">
+                  <mat-icon class="item-icon">{{ subItem.icon }}</mat-icon>
+                  <span class="item-text">{{ subItem.title }}</span>
+                </div>
+                <mat-icon class="expand-icon"
+                  [class.rotated]="isExpanded(subItem.id)">
+                  expand_more
+                </mat-icon>
+              </div>
+
+              <div class="collapse-content-wrapper"
+                [class.expanded]="isExpanded(subItem.id)">
+                <div class="collapse-items">
+                  <ng-container
+                    *ngTemplateOutlet="renderMenuItems; context: { $implicit: subItem.children }"></ng-container>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </ng-template>
+
+      </nav>
+    </div>
+  </mat-sidenav>
+
+  <!-- Main Content Area -->
+  <mat-sidenav-content class="main-content">
+    <ng-content></ng-content>
+  </mat-sidenav-content>
+
+</mat-sidenav-container>

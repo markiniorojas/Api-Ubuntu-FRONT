@@ -1,0 +1,71 @@
+/* templates-available.component.css */
+.plantilla-carnet {
+  padding: 32px;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 48px;
+  color: #1a202c;
+}
+
+.title {
+  font-size: 2.8rem;
+  font-weight: 700;
+  margin: 0 0 12px 0;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  margin: 0;
+  opacity: 0.8;
+  font-weight: 400;
+  color: #64748b;
+  text-transform: capitalize;
+}
+
+.cards-grid {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .plantilla-carnet {
+    padding: 20px;
+  }
+
+  .title {
+    font-size: 2.2rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
+
+  .header {
+    margin-bottom: 32px;
+  }
+}
+
+@media (max-width: 480px) {
+  .plantilla-carnet {
+    padding: 16px;
+  }
+
+  .title {
+    font-size: 1.9rem;
+  }
+
+  .header {
+    margin-bottom: 24px;
+  }
+}
